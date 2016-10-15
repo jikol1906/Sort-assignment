@@ -10,14 +10,10 @@ public class Sort {
 
     public static <E extends Comparable<E>> void bubbleSort (E[] arr) {
 
-        E temp;
-
         for (int k = 0; k < arr.length - 1; k++) {
             for (int i = 0; i < arr.length - k - 1; i++) {
                 if(arr[i].compareTo(arr[i+1]) == 1) {
-                    temp = arr[i];
-                    arr[i] = arr[i+1];
-                    arr[i+1] = temp;
+                    swap(arr, i, i+1);
                 }
 
             }
@@ -27,14 +23,10 @@ public class Sort {
 
     public static <E extends Comparable<E>> void bubbleSort (E[] arr, Comparator<? super E> comparator) {
 
-        E temp;
-
         for (int k = 0; k < arr.length - 1; k++) {
             for (int i = 0; i < arr.length - k - 1; i++) {
                 if(comparator.compare(arr[i],arr[i+1]) == 1) {
-                    temp = arr[i];
-                    arr[i] = arr[i+1];
-                    arr[i+1] = temp;
+                    swap(arr, i, i+1);
                 }
 
             }
@@ -116,6 +108,58 @@ public class Sort {
 
     }
 
+    public static <E extends Comparable<E>> void quickSort(E[] arr) {
+        
+        quickSort(arr, 0, arr.length-1);
+
+    }
+
+    public static <E extends Comparable<E>> void quickSort(E[] arr, int start, int end) {
+        
+        if(start < end) {
+            int sortedIndex = partition(arr, start, end);
+            quickSort(arr, start, sortedIndex-1);
+            quickSort(arr, sortedIndex+1, end);
+        }
+    }
+
+    private static <E extends Comparable<E>> int partition(E[] arr, int start, int end) {
+
+        E pivot = arr[end];
+        int wall = start-1;
+
+        for (int i = start; i < end; i++) {
+            if(arr[i].compareTo(pivot) < 0) {
+                wall++;
+                if(!arr[wall].equals(arr[i])) {
+                    swap(arr, wall, i);
+                }
+
+            }
+
+        }
+
+        if(wall+1 != end) {
+            swap(arr, wall + 1, end);
+        }
+        return wall+1;
+        
+        
+
+
+    }
+    
+    private static <E> void swap(E[] arr, int index1, int index2) {
+        E temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+        
+    }
+
+
+
+    //Bonus
+
     public static int binarySearch(int[] numbers, int target) {
         return binarySearch(numbers, target, 0, numbers.length-1);
     }
@@ -142,14 +186,7 @@ public class Sort {
 
     }
 
-    private static <E extends Comparable<E>> E[] leftHalf (E[] arr) {
-        int size = arr.length/2;
-        E[] left = (E[]) new Object[size];
-        for (int i = 0; i <  left.length; i++) {
-            left[i] = arr[i];
-        }
-        return left;
-    }
+
 
 
 }

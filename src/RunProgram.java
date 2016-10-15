@@ -1,4 +1,5 @@
 import Sort.MergeSort;
+import Sort.Sort;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,17 +16,18 @@ public class RunProgram {
 
         Random r = new Random();
 
-
-
-        Integer[] list = new Integer[10000];
-        Integer[] list2 = new Integer[10000];
+        Integer[] list = new Integer[100];
 
         for (int i = 0; i < list.length; i++) {
-            list[i] = r.nextInt(100);
-            list2[i] = r.nextInt(10);
+
+            list[i] = r.nextInt(1000);
+
         }
 
-        MergeSort.mergeSort(list);
+
+
+
+        Sort.quickSort(list);
 
         System.out.println(Arrays.toString(list));
 
