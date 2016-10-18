@@ -1,6 +1,6 @@
 package Sort;
 
-import java.util.Arrays;
+
 import java.util.Comparator;
 
 /**
@@ -39,8 +39,8 @@ public class Sort {
 
         if(arr.length > 1) {
 
-            E[] left = Arrays.copyOfRange(arr,0,arr.length/2);
-            E[] right = Arrays.copyOfRange(arr,arr.length/2,arr.length);
+            E[] left = leftHalf(arr);
+            E[] right = rightHalf(arr,left);
 
             mergeSort(left);
             mergeSort(right);
@@ -57,8 +57,8 @@ public class Sort {
 
         if(arr.length > 1) {
 
-            E[] left = Arrays.copyOfRange(arr,0,arr.length/2);
-            E[] right = Arrays.copyOfRange(arr,arr.length/2,arr.length);
+            E[] left = leftHalf(arr);
+            E[] right = rightHalf(arr,left);
 
             mergeSort(left, comparator);
             mergeSort(right, comparator);
@@ -114,6 +114,7 @@ public class Sort {
 
     }
 
+
     public static <E extends Comparable<E>> void quickSort(E[] arr, int start, int end) {
         
         if(start < end) {
@@ -122,6 +123,12 @@ public class Sort {
             quickSort(arr, sortedIndex+1, end);
         }
     }
+
+
+    /**
+     * Places the last element in the array in its sorted position.
+     * @return the sorted element
+     */
 
     private static <E extends Comparable<E>> int partition(E[] arr, int start, int end) {
 
@@ -148,12 +155,82 @@ public class Sort {
 
 
     }
+
+
+    public static <E extends Comparable<E>> void quickSort(E[] arr, Comparator<? super E> comp) {
+
+        quickSort(arr, 0, arr.length-1,comp);
+
+    }
+
+
+    public static <E extends Comparable<E>> void quickSort(E[] arr, int start, int end, Comparator<? super E> comp) {
+
+        if(start < end) {
+            int sortedIndex = partition(arr, start, end, comp);
+            quickSort(arr, start, sortedIndex-1, comp);
+            quickSort(arr, sortedIndex+1, end, comp);
+        }
+    }
+
+
+    /**
+     * Places the last element in the array in its sorted position.
+     * @return the sorted element
+     */
+
+    private static <E extends Comparable<E>> int partition(E[] arr, int start, int end, Comparator<? super E> comp) {
+
+        E pivot = arr[end];
+        int wall = start-1;
+
+        for (int i = start; i < end; i++) {
+            if(comp.compare(arr[i],pivot) < 0) {
+                wall++;
+                if(!arr[wall].equals(arr[i])) {
+                    swap(arr, wall, i);
+                }
+
+            }
+
+        }
+
+        if(wall+1 != end) {
+            swap(arr, wall + 1, end);
+        }
+        return wall+1;
+
+
+
+
+    }
+
+
     
     private static <E> void swap(E[] arr, int index1, int index2) {
         E temp = arr[index1];
         arr[index1] = arr[index2];
         arr[index2] = temp;
         
+    }
+
+
+    @SuppressWarnings("unchecked")
+    protected static <E extends Comparable<E>> E[] leftHalf(E[] arr) {
+
+        E[] toReturn = (E[]) new Comparable[arr.length/2];
+        System.arraycopy(arr,0,toReturn,0,toReturn.length);
+        return toReturn;
+
+    }
+
+    @SuppressWarnings("unchecked")
+     protected static <E extends Comparable<E>> E[] rightHalf(E[] arr, E[] leftHalf) {
+
+        E[] toReturn =(E[]) new Comparable[arr.length-leftHalf.length];
+        System.arraycopy(arr,leftHalf.length,toReturn,0,toReturn.length);
+        return toReturn;
+
     }
 
 

@@ -3,9 +3,12 @@ package Sort;
 import java.util.concurrent.Callable;
 
 
+
+
 /**
  * Created by borisgrunwald on 14/10/2016.
  */
+
 public class MergeThread<E extends Comparable<E>> implements Callable<E[]> {
 
 
@@ -16,7 +19,6 @@ public class MergeThread<E extends Comparable<E>> implements Callable<E[]> {
     }
 
 
-    @Override
     public E[] call() throws Exception {
 
         Sort.mergeSort(arr);
@@ -24,3 +26,4 @@ public class MergeThread<E extends Comparable<E>> implements Callable<E[]> {
 
     }
 }
+
