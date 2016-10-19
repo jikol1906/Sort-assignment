@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import static org.junit.Assert.*;
 
@@ -31,39 +32,70 @@ public class SortTest {
 
         Sort.bubbleSort(unSorted);
 
-        assertEquals(unSorted, toBeSorted);
+        assertArrayEquals(unSorted, toBeSorted);
 
 
     }
 
     @Test
-    public void bubbleSort1() throws Exception {
+    public void bubbleSortWithComparator() throws Exception {
+
+        Sort.bubbleSort(unSorted, new Comparator<Integer>() {
+            public int compare(Integer o1, Integer o2) {
+
+                return o2-o1;
+
+            }
+        });
+
+        assertArrayEquals(unSorted,toBeSorted);
 
     }
 
     @Test
     public void mergeSort() throws Exception {
 
+        Sort.mergeSort(unSorted);
+
+        assertArrayEquals(unSorted,toBeSorted);
+
     }
 
     @Test
-    public void mergeSort1() throws Exception {
+    public void mergeSortWithComparator() throws Exception {
+
+        Sort.mergeSort(unSorted, new Comparator<Integer>() {
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        });
+
+        assertArrayEquals(unSorted,toBeSorted);
 
     }
 
     @Test
     public void quickSort() throws Exception {
 
+        Sort.quickSort(unSorted);
+
+        assertArrayEquals(unSorted,toBeSorted);
+
     }
 
     @Test
-    public void quickSort1() throws Exception {
+    public void quickSortWithComparator() throws Exception {
+
+        Sort.quickSort(unSorted, new Comparator<Integer>() {
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        });
+
+        assertArrayEquals(unSorted,toBeSorted);
 
     }
 
-    @Test
-    public void binarySearch() throws Exception {
 
-    }
 
 }

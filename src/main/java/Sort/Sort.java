@@ -25,7 +25,7 @@ public class Sort {
 
         for (int k = 0; k < arr.length - 1; k++) {
             for (int i = 0; i < arr.length - k - 1; i++) {
-                if(comparator.compare(arr[i],arr[i+1]) == 1) {
+                if(comparator.compare(arr[i],arr[i+1]) < 0) {
                     swap(arr, i, i+1);
                 }
 
