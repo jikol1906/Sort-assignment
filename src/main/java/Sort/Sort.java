@@ -118,7 +118,8 @@ public class Sort {
     public static <E extends Comparable<E>> void quickSort(E[] arr, int start, int end) {
         
         if(start < end) {
-            int sortedIndex = partition(arr, start, end);
+            E median = medianOfThree(arr, start, end);
+            int sortedIndex = partition(arr, start, end, median);
             quickSort(arr, start, sortedIndex-1);
             quickSort(arr, sortedIndex+1, end);
         }
@@ -130,12 +131,11 @@ public class Sort {
      * @return the sorted element
      */
 
-    private static <E extends Comparable<E>> int partition(E[] arr, int start, int end) {
+    private static <E extends Comparable<E>> int partition(E[] arr, int start, int end, E pivot) {
 
-        E pivot = arr[end];
         int wall = start-1;
 
-        for (int i = start; i < end; i++) {
+        for (int i = start; i < end-1; i++) {
             if(arr[i].compareTo(pivot) < 0) {
                 wall++;
                 if(!arr[wall].equals(arr[i])) {
@@ -146,13 +146,29 @@ public class Sort {
 
         }
 
+
         if(wall+1 != end) {
-            swap(arr, wall + 1, end);
+            swap(arr, wall + 1, end-1);
         }
         return wall+1;
         
         
 
+
+    }
+
+
+    private static <E extends Comparable<E>> E medianOfThree(E[] arr, int start, int end) {
+
+        int center = (start+end)/2;
+        
+        if (arr[start].compareTo(arr[center]) > 0) swap(arr,start,center);
+        if (arr[start].compareTo(arr[end]) > 0) swap(arr, start, end);
+        if (arr[center].compareTo(arr[end]) > 0) swap(arr,center,end);
+
+        swap(arr,center,end-1);
+
+        return arr[end-1];
 
     }
 
@@ -164,7 +180,7 @@ public class Sort {
     }
 
 
-    public static <E extends Comparable<E>> void quickSort(E[] arr, int start, int end, Comparator<? super E> comp) {
+    private static <E extends Comparable<E>> void quickSort(E[] arr, int start, int end, Comparator<? super E> comp) {
 
         if(start < end) {
             int sortedIndex = partition(arr, start, end, comp);
@@ -247,14 +263,14 @@ public class Sort {
         if(max < min) {
             return -1;
         } else {
-            int mid = (min+max) / 2;
+            int center = (min+max) / 2;
 
-            if(numbers[mid] == target) {
-                return mid;
-            } else if (numbers[mid] < target) {
-                return binarySearch(numbers, target, mid+1, max);
+            if(numbers[center] == target) {
+                return center;
+            } else if (numbers[center] < target) {
+                return binarySearch(numbers, target, center+1, max);
             } else {
-                return binarySearch(numbers,target, min, mid-1);
+                return binarySearch(numbers,target, min, center-1);
             }
 
         }

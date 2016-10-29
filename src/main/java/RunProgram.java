@@ -13,32 +13,22 @@ public class RunProgram {
 
     public static void main(String[] args) {
 
-        String time = "12:00:00AM";
+        Integer[] arr = {3,8,4,6,9,2,5,0,5,3,2,5,54,25,645,45,435,364,575,68,564,634,35,234};
 
 
 
-        System.out.println(time(time));
+        Sort.quickSort(arr);
+
+        System.out.println(Arrays.toString(arr));
 
 
 
-    }
-
-
-
-    public static String time(String time) {
-
-        String hours = null;
-
-        if(time.substring(time.length()-2).equals("PM")) {
-            if(time.substring(0,2).equals("12")) {
-                hours = "00";
-            } else hours = String.valueOf(Integer.valueOf(time.substring(0,2))+12);
-            return hours+time.substring(2,time.length()-2);
-        } else {
-            return time.substring(0, time.length() - 2);
-        }
 
     }
+
+
+
+
 
 
 }
