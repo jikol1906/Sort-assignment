@@ -191,7 +191,7 @@ public class Sort {
 
 
     /**
-     * Places the last element in the array in its sorted position.
+     * Places the last-1 (median of start, mid and end) element in the array in its sorted position.
      * @return the sorted element
      */
 
